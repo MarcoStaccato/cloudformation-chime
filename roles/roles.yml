@@ -1,0 +1,22 @@
+Description: Marco Martinez / Chime roles
+
+Parameters:
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resources
+    Type: String
+
+Resources:
+  ChimeAdminGroup:
+    Type: AWS::IAM::Group
+    Properties: 
+      GroupName: chime-admin-group
+      Path: !Sub /${EnvironmentName}/chime/admins/
+      ManagedPolicyArns: 
+        - arn:aws:iam::aws:policy/AmazonChimeFullAccess
+
+Outputs: 
+  ChimeAdminGroup: 
+    Description: Reference to Chime admin group
+    Value: !Ref ChimeAdminGroup
+    Export:
+      Name: !Sub ${EnvironmentName}-ChimeAdminGroup
